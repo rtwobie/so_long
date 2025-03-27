@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   window.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 15:55:35 by rha-le            #+#    #+#             */
-/*   Updated: 2025/03/27 02:59:21 by rha-le           ###   ########.fr       */
+/*   Created: 2025/03/27 02:22:00 by rha-le            #+#    #+#             */
+/*   Updated: 2025/03/27 02:23:15 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include "structs.h"
-#include "draw.h"
+#ifndef WINDOW_H
+# define WINDOW_H
 
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-	t_app game;
+# include "structs.h"
 
-	init_game(&game);
-	return (0);
-}
+int close_window(t_app *game);
+void init_game(t_app *game);
+
+#endif // !WINDOW_H

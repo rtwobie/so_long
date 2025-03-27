@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 15:55:35 by rha-le            #+#    #+#             */
-/*   Updated: 2025/03/27 02:59:21 by rha-le           ###   ########.fr       */
+/*   Created: 2025/03/26 20:38:55 by rha-le            #+#    #+#             */
+/*   Updated: 2025/03/27 03:48:45 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include "structs.h"
-#include "draw.h"
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-int	main(int argc, char **argv)
+typedef struct s_app
 {
-	(void)argc;
-	(void)argv;
-	t_app game;
+	void	*app;
+	void	*win;
+}	t_app;
 
-	init_game(&game);
-	return (0);
-}
+typedef struct s_entity
+{
+	void	*tex;
+	int		x;
+	int		y;
+}	t_entity;
+
+#endif // !STRUCTS_H

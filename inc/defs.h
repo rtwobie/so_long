@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   defs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 15:55:35 by rha-le            #+#    #+#             */
-/*   Updated: 2025/03/27 02:59:21 by rha-le           ###   ########.fr       */
+/*   Created: 2025/03/26 20:47:54 by rha-le            #+#    #+#             */
+/*   Updated: 2025/03/26 20:50:13 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include "structs.h"
-#include "draw.h"
+#ifndef DEFS_H
+# define  DEFS_H
 
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-	t_app game;
+# define WINDOW_HEIGHT 900
+# define WINDOW_WIDTH 1600
 
-	init_game(&game);
-	return (0);
-}
+# define KEY_ESCAPE 0xff1b
+
+#endif // !DEFS_H
