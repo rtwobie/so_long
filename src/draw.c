@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include <mlx.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include "defs.h"
-#include "ft_printf.h"
+#include "get_next_line.h"
 #include "input.h"
 #include "structs.h"
 #include "draw.h"
@@ -24,19 +25,32 @@ int	close_window(t_app *game)
 	exit(0);
 }
 
-void init_game(t_app *game)
+char	**read_map(char *filename)
+{
+	char	**map;
+	int		fd;
+	fd = open(filename, O_RDONLY);
+	while (1)
+	{
+		*map = get_next_line(fd);
+		if(!map)
+			break ;
+		++map;
+	}
+	return (map);
+}
+
+void init_game(t_app *game, char *mapname)
 {
 	game->app = mlx_init();
-	game->win = mlx_new_window(game->app, WINDOW_WIDTH, WINDOW_HEIGHT, "so_long");
+	game->win = mlx_new_window(game->app, WIN_WIDTH, WIN_HEIGHT, "so_long");
 
-	t_entity player;
-	player.tex = mlx_xpm_file_to_image(game->app, "textures/slime.xpm", &player.x, &player.y);
-	ft_printf("%i, %i\n", player.x, player.y);
-	mlx_put_image_to_window(game->app, game->win, player.tex, WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
+	// init map
+	(void)mapname;
+	/*char **map = read_map(mapname);*/
+
 	mlx_hook(game->win, 17, 0, close_window, game);
-
 	mlx_key_hook(game->win, key_hook, game);
-
 	mlx_loop(game->app);
 }
 

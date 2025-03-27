@@ -11,15 +11,23 @@
 /* ************************************************************************** */
 
 #include <mlx.h>
+#include "ft_printf.h"
 #include "structs.h"
 #include "draw.h"
 
 int	main(int argc, char **argv)
 {
 	(void)argc;
-	(void)argv;
-	t_app game;
+	/*t_app		game;*/
+	/*t_entity	player;*/
+	/*game.player = &player;*/
+	char **map = read_map(argv[1]);
+	while (map)
+	{
+		ft_printf("%s\n", *map);
+		++map;
+	}
 
-	init_game(&game);
+	/*init_game(&game, argv[1]);*/
 	return (0);
 }

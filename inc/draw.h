@@ -15,7 +15,8 @@
 
 # include "structs.h"
 
-int close_window(t_app *game);
-void init_game(t_app *game);
+int		close_window(t_app *game);
+char	**read_map(char *filename);
+void	init_game(t_app *game, char *mapname);
 
 #endif // !WINDOW_H

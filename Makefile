@@ -45,6 +45,7 @@ vpath %.c src/
 SRC		+= main.c
 SRC		+= input.c
 SRC		+= draw.c
+SRC		+= get_next_line.c
 
 OBJ		:= $(SRC:.c=.o)
 OBJ		:= $(addprefix $(OBJ_DIR)/, $(OBJ))
