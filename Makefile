@@ -16,6 +16,7 @@ CFLAGS	+= -Wextra
 CFLAGS	+= -Werror
 CFLAGS	+= -pedantic
 CFLAGS	+= -Wconversion
+CFLAGS	+= $(ADDFLAGS)
 
 CPPFLAGS	:=
 CPPFLAGS	+= -I$(INC_DIR)
@@ -46,6 +47,8 @@ SRC		+= main.c
 SRC		+= input.c
 SRC		+= draw.c
 SRC		+= get_next_line.c
+SRC		+= map.c
+SRC		+= utils.c
 
 OBJ		:= $(SRC:.c=.o)
 OBJ		:= $(addprefix $(OBJ_DIR)/, $(OBJ))
