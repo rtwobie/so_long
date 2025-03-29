@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <mlx.h>
-#include <fcntl.h>
 #include <stdlib.h>
 #include "defs.h"
 #include "get_next_line.h"
@@ -23,21 +22,6 @@ int	close_window(t_app *game)
 {
 	mlx_destroy_window(game->app, game->win);
 	exit(0);
-}
-
-char	**read_map(char *filename)
-{
-	char	**map;
-	int		fd;
-	fd = open(filename, O_RDONLY);
-	while (1)
-	{
-		*map = get_next_line(fd);
-		if(!map)
-			break ;
-		++map;
-	}
-	return (map);
 }
 
 void init_game(t_app *game, char *mapname)
