@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 20:38:55 by rha-le            #+#    #+#             */
-/*   Updated: 2025/03/27 03:48:45 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/03/28 18:45:33 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,18 @@ typedef struct s_entity
 	int		y;
 }	t_entity;
 
+typedef struct s_map
+{
+	char	**lvl;
+	int		w;
+	int		h;
+}	t_map;
+
 typedef struct s_app
 {
-	void	*app;
-	void	*win;
-	t_entity *player;
+	void		*app;
+	void		*win;
+	t_entity	*player;
 }	t_app;
 
 #endif // !STRUCTS_H
