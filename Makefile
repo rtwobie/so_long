@@ -46,7 +46,6 @@ vpath %.c src/
 SRC		+= main.c
 SRC		+= input.c
 SRC		+= draw.c
-SRC		+= get_next_line.c
 SRC		+= map.c
 SRC		+= utils.c
 
@@ -80,4 +79,8 @@ re:
 	@make fclean
 	@make all
 
+valtest:
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME) $(ARGS)
+
 .PHONY: all clean fclean re
+.PHONY: valtest
