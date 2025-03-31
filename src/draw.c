@@ -13,7 +13,6 @@
 #include <mlx.h>
 #include <stdlib.h>
 #include "defs.h"
-#include "get_next_line.h"
 #include "input.h"
 #include "structs.h"
 #include "draw.h"
@@ -24,7 +23,7 @@ int	close_window(t_app *game)
 	exit(0);
 }
 
-void init_game(t_app *game, char *mapname)
+void	init_game(t_app *game, char *mapname)
 {
 	game->app = mlx_init();
 	game->win = mlx_new_window(game->app, WIN_WIDTH, WIN_HEIGHT, "so_long");
