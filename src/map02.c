@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   map02.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 15:55:35 by rha-le            #+#    #+#             */
-/*   Updated: 2025/03/31 18:31:07 by rha-le           ###   ########.fr       */
+/*   Created: 2025/03/31 17:55:11 by rha-le            #+#    #+#             */
+/*   Updated: 2025/03/31 18:19:47 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include "libft.h"
 #include "structs.h"
-#include "map.h"
-#include "utils.h"
-
-static void print_map(t_map *map)
-{
-	for (int i = 0; map->lvl[i]; i++)
-	{
-		ft_putstr_fd(map->lvl[i], 1);
-		ft_putchar_fd('\n', 1);
-	}
-}
 
 int	start_pos(t_map *map)
 {
@@ -42,28 +29,9 @@ int	start_pos(t_map *map)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+char	**flood_fill(t_map *map)
 {
-	if (argc != 2)
-		return (1);
-	/*t_app		game;*/
-	/*t_entity	player;*/
-	/*game.player = &player;*/
-	t_map map;
-
-	create_map(argv[1], &map);
-
-	print_map(&map);
-	ft_printf("w: %i, h: %i\n", map.w, map.h);
-
-	if (!start_pos(&map))
-	{
-		free_all(map.lvl);
-		return (1);
-	}
-	print_map(&map);
-	ft_printf("x: %i, y: %i\n", map.start_x, map.start_y);
-
-	free_all(map.lvl);
-	return (0);
+	char target = '0';
 }
+
+

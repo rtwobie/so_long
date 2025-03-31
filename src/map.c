@@ -18,15 +18,36 @@
 #include "structs.h"
 #include "libft.h"
 #include "utils.h"
-#include "get_next_line.h"
 
-int	get_dimensions(char *s, int *x, int *y)
+static int	check_charset(char *c)
+{
+	static unsigned char	check = 0x00;
+
+	if (!ft_strchr(CHARSET, *c) && *c != '\n')
+		return (1);
+	if (ft_strchr("PE", *c))
+	{
+		if (*c == 'P' && !(check & 1))
+			check |= 1;
+		else if (*c == 'E' && !(check & (1 << 1)))
+			check |= (1 << 1);
+		else
+			return (1);
+	}
+	if (*c == '\n' && *(c + 1) == '\n')
+		return (1);
+	return (0);
+}
+
+static int	get_dimensions(char *s, int *x, int *y)
 {
 	*x = 0;
 	*y = 0;
+	if (!s)
+		return (1);
 	while (*s)
 	{
-		if (!ft_strchr(CHARSET, *s))
+		if (check_charset(s))
 			return (1);
 		if (*s == '\n' && *y > 1 && *((s - *x) - 1) != '\n')
 			return (1);
@@ -45,38 +66,52 @@ int	get_dimensions(char *s, int *x, int *y)
 	return (0);
 }
 
-char	*read_map(char *filename, t_map *map, int fd)
+static void	append_buf(char **s, char *buf)
+{
+	char	*temp;
+
+	if (*s)
+		temp = *s;
+	else
+		temp = "";
+	*s = ft_strjoin(temp, buf);
+	if (!temp)
+		free(temp);
+}
+
+static char	*read_file(t_map *map, int fd)
 {
 	ssize_t	bread;
-	char *buf;
+	char	*file;
+	char	*buf;
 
-	buf = malloc(sizeof(*buf) * BYTES_RD);
-	bread = 1;
-	while (bread != 0)
+	buf = ft_calloc(sizeof(*buf), BYTES_RD);
+	if (!buf)
+		return (NULL);
+	file = NULL;
+	while (1)
 	{
 		bread = read(fd, buf, BYTES_RD);
+		if (bread == 0)
+			break ;
 		if (bread == -1)
-		{
-			free(buf);
-			return (NULL);
-		}
-		if (bread == BYTES_RD)
-		{
-			buf =
-		}
+			return (free(buf), NULL);
+		append_buf(&file, buf);
 	}
-	/*if (get_dimensions(buf, &map->w, &map->h))*/
-	/*{*/
-	/*	print_error("Failed to get dimensions\n");*/
-	/*	exit(1);*/
-	/*}*/
-	return (0);
+	free(buf);
+	if (get_dimensions(file, &map->w, &map->h))
+	{
+		print_error("Invalid map!\n");
+		free(file);
+		(close(fd), exit(1));
+	}
+	return (file);
 }
 
 int	create_map(char *filename, t_map *map)
 {
-	int	fd;
-	int	i;
+	int		fd;
+	char	*buf;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
@@ -84,17 +119,15 @@ int	create_map(char *filename, t_map *map)
 		print_error("Failed to open map");
 		exit(1);
 	}
-	map->lvl = ft_split(buf, '\n');
-		map->lvl[map->h] = NULL;
-	i = 0;
-	while (i < map->h)
+	buf = read_file(map, fd);
+	if (!buf)
 	{
-		map->lvl[i] = get_next_line(fd);
-		if (!map->lvl[i])
-		{
-			free_
-		}
+		print_error("Failed to read map");
+		close(fd);
+		exit(1);
 	}
+	map->lvl = ft_split(buf, '\n');
+	free(buf);
+	close(fd);
 	return (0);
 }
-
