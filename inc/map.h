@@ -20,7 +20,6 @@
 #  define BYTES_RD 1024
 # endif
 
-int	read_map(char *filename, t_map *map);
-int	get_dimensions(char *s, int *x, int *y);
+int		create_map(char *filename, t_map *map);
 
 #endif //!MAP_H

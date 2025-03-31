@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #ifndef DEFS_H
-# define  DEFS_H
+# define DEFS_H
 
 # define WIN_HEIGHT 900
 # define WIN_WIDTH 1600
 
-# define CHARSET "10PCE\n"
+# define CHARSET "10PCE"
 
 # define KEY_ESCAPE 0xff1b
 # define KEY_W 0x77

@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WINDOW_H
-# define WINDOW_H
+#ifndef DRAW_H
+# define DRAW_H
 
 # include "structs.h"
 
 int		close_window(t_app *game);
 void	init_game(t_app *game, char *mapname);
 
-#endif // !WINDOW_H
+#endif // !DRAW_H

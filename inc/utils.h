@@ -14,5 +14,6 @@
 # define UTILS_H
 
 void	print_error(char *s);
+void	*free_all(char **p);
 
 #endif // !UTILS_H

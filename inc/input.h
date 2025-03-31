@@ -18,4 +18,3 @@
 int	key_hook(int keycode, t_app *game);
 
 #endif //!INPUT_H
-
