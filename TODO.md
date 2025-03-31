@@ -1,0 +1,3 @@
+- [x] test with empty.ber
+- [x] write better CHARSET check (duplicates of objects)
+- [ ]
