@@ -5,129 +5,110 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 14:03:53 by rha-le            #+#    #+#             */
-/*   Updated: 2025/03/28 22:03:18 by rha-le           ###   ########.fr       */
+/*   Created: 2025/04/07 17:19:26 by rha-le            #+#    #+#             */
+/*   Updated: 2025/04/07 22:22:53 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "map.h"
-#include "defs.h"
-#include "structs.h"
 #include "libft.h"
+#include "structs.h"
 #include "utils.h"
+#include <stdlib.h>
 
-static int	check_charset(char *c)
+static void	count_coins(t_map *map)
 {
-	static unsigned char	check = 0x00;
+	int	x;
+	int	y;
 
-	if (!ft_strchr(CHARSET, *c) && *c != '\n')
-		return (1);
-	if (ft_strchr("PE", *c))
+	y = 0;
+	map->coin_count = 0;
+	while (y < map->h)
 	{
-		if (*c == 'P' && !(check & 1))
-			check |= 1;
-		else if (*c == 'E' && !(check & (1 << 1)))
-			check |= (1 << 1);
-		else
-			return (1);
+		x = 0;
+		while (x < map->w)
+		{
+			map->coin_count += (map->lvl[y][x] == 'C');
+			++x;
+		}
+		++y;
 	}
-	if (*c == '\n' && *(c + 1) == '\n')
-		return (1);
-	return (0);
 }
 
-static int	get_dimensions(char *s, int *x, int *y)
+static void	get_pos(t_map *map, t_entity *entity, char c)
 {
-	*x = 0;
-	*y = 0;
-	if (!s)
-		return (1);
-	while (*s)
+	int	x;
+	int	y;
+	t_entity *p;
+
+	y = 0;
+	p = entity;
+	while (y < map->h)
 	{
-		if (check_charset(s))
-			return (1);
-		if (*s == '\n' && *y > 1 && *((s - *x) - 1) != '\n')
-			return (1);
-		if (*s == '\n')
-			++(*y);
-		if (*y == 0)
-			++(*x);
-		++s;
+		x = 0;
+		while (x < map->w)
+		{
+			if (map->lvl[y][x] == c)
+			{
+				p->x = x;
+				p->y = y;
+				++p;
+			}
+			++x;
+		}
+		++y;
 	}
-	if (*(s - 1) != '\n' && *((s - *x) - 1) == '\n')
-		++(*y);
-	else if (*(s - 1) == '\n' && *((s - *x) - 2) != '\n')
-		return (1);
-	else if (*y < 3)
-		return (1);
-	return (0);
 }
 
-static void	append_buf(char **s, char *buf)
+static t_entity	*init_coins(t_map *map, size_t count)
 {
-	char	*temp;
+	size_t		i;
+	t_entity	*coins;
 
-	if (*s)
-		temp = *s;
-	else
-		temp = "";
-	*s = ft_strjoin(temp, buf);
-	if (!temp)
-		free(temp);
-}
-
-static char	*read_file(t_map *map, int fd)
-{
-	ssize_t	bread;
-	char	*file;
-	char	*buf;
-
-	buf = ft_calloc(sizeof(*buf), BYTES_RD);
-	if (!buf)
+	coins = ft_calloc(count, sizeof(*coins));
+	if (!coins)
 		return (NULL);
-	file = NULL;
-	while (1)
+	i = 0;
+	while (i < count)
 	{
-		bread = read(fd, buf, BYTES_RD);
-		if (bread == 0)
-			break ;
-		if (bread == -1)
-			return (free(buf), NULL);
-		append_buf(&file, buf);
+		get_pos(map, coins, 'C');
+		++i;
 	}
-	free(buf);
-	if (get_dimensions(file, &map->w, &map->h))
-	{
-		print_error("Invalid map!\n");
-		free(file);
-		(close(fd), exit(1));
-	}
-	return (file);
+	return (coins);
 }
 
-int	create_map(char *filename, t_map *map)
+static int	init_objects(t_map *map)
 {
-	int		fd;
-	char	*buf;
+	count_coins(map);
+	if (!map->coin_count)
+	{
+		free_all(map);
+		print_error("Map Invalid: No Coins found!\n");
+		exit(1);
+	}
+	map->coin = init_coins(map, (size_t)map->coin_count);
+	get_pos(map, &map->player, 'P');
+	get_pos(map, &map->exit, 'E');
+	if ((!map->player.x && !map->player.y) || (!map->exit.x && !map->exit.y))
+	{
+		free_all(map);
+		print_error("Map Invalid: No Player and/or Exit found!\n");
+		exit(1);
+	}
+	return (0);
+}
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
+int	init_map(t_map *map, char *filename)
+{
+	create_lvl(filename, map);
+	if (!map->lvl)
+		exit(1);
+	init_objects(map);
+	if (!is_mapvalid(map))
 	{
-		print_error("Failed to open map");
+		free_all(map);
+		print_error("Map Invalid: Open Walls!\n");
 		exit(1);
 	}
-	buf = read_file(map, fd);
-	if (!buf)
-	{
-		print_error("Failed to read map");
-		close(fd);
-		exit(1);
-	}
-	map->lvl = ft_split(buf, '\n');
-	free(buf);
-	close(fd);
 	return (0);
 }
