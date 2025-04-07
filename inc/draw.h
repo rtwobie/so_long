@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.h                                           :+:      :+:    :+:   */
+/*   draw.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:00 by rha-le            #+#    #+#             */
-/*   Updated: 2025/03/27 02:23:15 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/07 22:46:16 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include "structs.h"
 
 int		close_window(t_app *game);
-void	init_game(t_app *game, char *mapname);
+void	init_game(t_app *game, t_map *map);
 
 #endif // !DRAW_H
