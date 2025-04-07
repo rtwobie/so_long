@@ -6,15 +6,16 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:51:23 by rha-le            #+#    #+#             */
-/*   Updated: 2025/03/28 21:51:40 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/07 21:07:20 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "structs.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-void	*free_all(char **p)
+void	*free_lvl(char **p)
 {
 	size_t	i;
 
@@ -22,6 +23,16 @@ void	*free_all(char **p)
 	while (p[i])
 		free(p[i++]);
 	free(p);
+	return (NULL);
+}
+
+void	*free_all(t_map *map)
+{
+	if (map->lvl)
+		free_lvl(map->lvl);
+	if (map->coin)
+		free(map->coin);
+	free(map);
 	return (NULL);
 }
 
