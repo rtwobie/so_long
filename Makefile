@@ -46,7 +46,9 @@ vpath %.c src/
 SRC		+= main.c
 SRC		+= input.c
 SRC		+= draw.c
+SRC		+= lvl.c
 SRC		+= map.c
+SRC		+= map_validity.c
 SRC		+= utils.c
 
 OBJ		:= $(SRC:.c=.o)
