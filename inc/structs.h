@@ -30,10 +30,24 @@ typedef struct s_map
 	t_entity	player;
 }	t_map;
 
+typedef struct s_texture
+{
+	void	*tex;
+	int		w;
+	int		h;
+}	t_texture;
+
 typedef struct s_app
 {
 	void		*app;
 	void		*win;
+	void		*frame;
+	t_map		*map;
+	t_texture	_1;
+	t_texture	_0;
+	t_texture	_p;
+	t_texture	_c;
+	t_texture	_e;
 }	t_app;
 
 #endif // !STRUCTS_H

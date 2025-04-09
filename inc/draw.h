@@ -16,6 +16,6 @@
 # include "structs.h"
 
 int		close_window(t_app *game);
-void	init_game(t_app *game, t_map *map);
+void	init_game(t_app *game);
 
 #endif // !DRAW_H
