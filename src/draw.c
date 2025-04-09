@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:19:01 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/08 18:47:02 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/09 18:09:38 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,58 +20,78 @@
 int	close_window(t_app *game)
 {
 	mlx_destroy_window(game->app, game->win);
+	destroy_textures(game);
+	free(game->app);
+	free(game);
 	exit(0);
+}
+
+void	render_cell(t_app *game, int x, int y)
+{
+	void	*texture;
+	char	cell;
+
+	texture = NULL;
+	cell = game->map->lvl[y][x];
+	if (cell == '0')
+		texture = game->tex._0;
+	if (cell == '1')
+		texture = game->tex._1;
+	if (cell == 'P')
+		texture = game->tex._p;
+	if (cell == 'C')
+		texture = game->tex._c;
+	if (cell == 'E')
+		texture = game->tex._e;
+	mlx_put_image_to_window(game->app, game->win, texture, x * TILE_SIZE, y * TILE_SIZE);
 }
 
 int draw_map(t_app *game)
 {
 	int		y;
 	int		x;
+	int		i;
+	int		j;
 
 	y = 0;
-	for (int i = 0; i < game->map->h; i++)
+	i = -1;
+	while (++i < game->map->h)
 	{
 		x = 0;
-		for (int j = 0; j < game->map->w; j++)
+		j = -1;
+		while (++j < game->map->w)
 		{
-				mlx_put_image_to_window(game->app, game->win, game->_0.tex, x, y);
-			x += game->_0.w;
+			render_cell(game, x, y);
+			++x;
 		}
-		y += game->_0.h;
+		++y;
 	}
-
-	y = 0;
-	for (int i = 0; i < game->map->h; i++)
-	{
-		x = 0;
-		for (int j = 0; j < game->map->w; j++)
-		{
-			if (game->map->lvl[i][j] == '1')
-				mlx_put_image_to_window(game->app, game->win, game->_1.tex, x, y);
-			x += game->_1.w;
-		}
-		y += game->_1.h;
-	}
-
-	x = game->map->player.x * game->_p.w;
-	y = game->map->player.y * game->_p.h;
-	mlx_put_image_to_window(game->app, game->win, game->_p.tex, x, y);
-	return (0);
-}
-
-int	draw_obj(t_app *game)
-{
-	game->frame = mlx_new_image(game->app, game->_0.w * game->map->w, game->_0.h * game->map->h);
 	return (1);
 }
 
 void	load_textures(t_app *game)
 {
-	game->_0.tex = mlx_xpm_file_to_image(game->app, "textures/bg.xpm", &game->_0.w, &game->_0.h);
-	game->_1.tex = mlx_xpm_file_to_image(game->app, "textures/wall.xpm", &game->_1.w, &game->_1.h);
-	game->_p.tex = mlx_xpm_file_to_image(game->app, "textures/slime3x.xpm", &game->_p.w, &game->_p.h);
-	game->_c.tex = mlx_xpm_file_to_image(game->app, "textures/ph_coin.xpm", &game->_c.w, &game->_c.h);
-	game->_e.tex = mlx_xpm_file_to_image(game->app, "textures/ph_door.xpm", &game->_e.w, &game->_e.h);
+	int w;
+	int h;
+	game->tex._0 = mlx_xpm_file_to_image \
+		(game->app, "textures/bg.xpm", &w, &h);
+	game->tex._1 = mlx_xpm_file_to_image \
+		(game->app, "textures/wall.xpm", &w, &h);
+	game->tex._p = mlx_xpm_file_to_image \
+		(game->app, "textures/slime3x.xpm", &w, &h);
+	game->tex._c = mlx_xpm_file_to_image \
+		(game->app, "textures/ph_coin.xpm", &w, &h);
+	game->tex._e = mlx_xpm_file_to_image \
+		(game->app, "textures/ph_door.xpm", &w, &h);
+}
+
+void	destroy_textures(t_app *game)
+{
+	mlx_destroy_image(game->app, game->tex._0);
+	mlx_destroy_image(game->app, game->tex._1);
+	mlx_destroy_image(game->app, game->tex._p);
+	mlx_destroy_image(game->app, game->tex._c);
+	mlx_destroy_image(game->app, game->tex._e);
 }
 
 void	init_game(t_app *game)
@@ -80,12 +100,15 @@ void	init_game(t_app *game)
 	if (!game->app)
 		return ;
 	game->win = mlx_new_window(game->app, WIN_WIDTH, WIN_HEIGHT, "so_long");
+	if (!game->win)
+		return ;
 
 	load_textures(game);
 	draw_map(game);
-	mlx_loop_hook(game->app, draw_obj, game);
 	mlx_hook(game->win, 17, 0, close_window, game);
 	mlx_key_hook(game->win, key_hook, game);
 	mlx_loop(game->app);
+	free(game->app);
+	free(game);
 }
 
