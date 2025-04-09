@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 17:55:11 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/07 22:22:56 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/08 18:37:59 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,22 @@ static int	check_border(char **lvl, int w, int h)
 	return (0);
 }
 
+int is_obj_reachable(t_map *map, char **filled_lvl)
+{
+	int	i;
+
+	if (filled_lvl[map->exit.y][map->exit.x] != 'F')
+		return (0);
+	i = 0;
+	while (i < map->coin_count)
+	{
+		if (filled_lvl[map->coin[i].y][map->coin[i].x] != 'F')
+			return (0);
+		++i;
+	}
+	return (1);
+}
+
 int	is_mapvalid(t_map *map)
 {
 	int		i;
@@ -56,7 +72,7 @@ int	is_mapvalid(t_map *map)
 
 	temp = malloc(sizeof(char *) * (size_t)(map->h + 1));
 	if (!temp)
-		return (1);
+		return (0);
 	i = -1;
 	while (++i < map->h)
 	{
@@ -70,6 +86,11 @@ int	is_mapvalid(t_map *map)
 	temp[map->h] = NULL;
 	flood_fill(map, temp, map->player.x, map->player.y);
 	if (check_border(temp, map->w, map->h) == -1)
+	{
+		free_lvl(temp);
+		return (0);
+	}
+	if (!is_obj_reachable(map, temp))
 	{
 		free_lvl(temp);
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:19:26 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/07 22:22:53 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/08 18:28:53 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	init_map(t_map *map, char *filename)
 	if (!is_mapvalid(map))
 	{
 		free_all(map);
-		print_error("Map Invalid: Open Walls!\n");
+		print_error("Map Invalid: Open Walls or Objectives not reachable!\n");
 		exit(1);
 	}
 	return (0);
