@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 17:55:11 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/08 18:37:59 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/09 16:49:04 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static void	flood_fill(t_map *map, char **lvl, int x, int y)
 	lvl[y][x] = 'F';
 	if (x + 1 < map->w && ft_strchr(TARGET, lvl[y][x + 1]))
 		flood_fill(map, lvl, x + 1, y);
+	if (y + 1 < map->h && ft_strchr(TARGET, lvl[y + 1][x]))
+		flood_fill(map, lvl, x, y + 1);
 	if (x - 1 > 0 && ft_strchr(TARGET, lvl[y][x - 1]))
 		flood_fill(map, lvl, x - 1, y);
-	if (y + 1 > map->h && ft_strchr(TARGET, lvl[y + 1][x]))
-		flood_fill(map, lvl, x, y + 1);
 	if (y - 1 > 0 && ft_strchr(TARGET, lvl[y - 1][x]))
 		flood_fill(map, lvl, x, y - 1);
 }
