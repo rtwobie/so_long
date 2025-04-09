@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 20:38:55 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/07 19:55:13 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/09 17:10:29 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ typedef struct s_map
 
 typedef struct s_texture
 {
-	void	*tex;
-	int		w;
-	int		h;
+	void	*_1;
+	void	*_0;
+	void	*_p;
+	void	*_c;
+	void	*_e;
 }	t_texture;
 
 typedef struct s_app
@@ -43,11 +45,9 @@ typedef struct s_app
 	void		*win;
 	void		*frame;
 	t_map		*map;
-	t_texture	_1;
-	t_texture	_0;
-	t_texture	_p;
-	t_texture	_c;
-	t_texture	_e;
+	t_texture	tex;
+	int			moves;
+	int			score;
 }	t_app;
 
 #endif // !STRUCTS_H
