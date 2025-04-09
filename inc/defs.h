@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 20:47:54 by rha-le            #+#    #+#             */
-/*   Updated: 2025/03/26 20:50:13 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/09 15:52:15 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define WIN_HEIGHT 900
 # define WIN_WIDTH 1600
+# define TILE_SIZE 96
+
 
 # define CHARSET "10PCE"
 
