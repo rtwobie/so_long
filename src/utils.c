@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:51:23 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/07 21:07:20 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/09 16:36:21 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,17 @@ void	print_error(char *s)
 		ft_putstr_fd(s, 2);
 	else
 		perror(s);
+}
+
+void print_map(char **lvl)
+{
+	int	i;
+
+	i = -1;
+	while (lvl[++i])
+	{
+		ft_putstr_fd(lvl[i], 1);
+		ft_putchar_fd('\n', 1);
+	}
 }
 
