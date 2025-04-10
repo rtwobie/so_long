@@ -1,7 +1,8 @@
 - [x] test with empty.ber
 - [x] write better CHARSET check (duplicates of objects)
 - [ ] add if cases for several mlx functions
-
+- [ ] fix the case: coin_blocked_by_E.ber
+- [ ] fix the case: big_map.ber
 #### Last Tests
 
 - [ ] check if CTRL+C breaks the game
