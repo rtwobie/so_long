@@ -97,13 +97,13 @@ static char	*read_file(t_map *map, int fd)
 		if (bread == -1)
 			return (free(buf), NULL);
 		append_buf(&file, buf);
+		ft_memset(buf, 0, BYTES_RD);
 	}
 	free(buf);
 	if (get_dimensions(file, &map->w, &map->h))
 	{
 		print_error("Map Invalid: Inconsistent Dimensions!\n");
-		(free(file), free_all(map));
-		(close(fd), exit(1));
+		(free(file), free_all(map), (close(fd), exit(1)));
 	}
 	return (file);
 }
