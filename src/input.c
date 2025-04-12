@@ -14,7 +14,7 @@
 #include "defs.h"
 #include "ft_printf.h"
 #include "structs.h"
-#include "draw.h"
+#include "utils.h"
 
 static void	update_map(t_app *game, t_map *map, int x, int y)
 {
@@ -32,26 +32,27 @@ static void	update_map(t_app *game, t_map *map, int x, int y)
 	map->player.y = y;
 }
 
-/*static void rotate_player(t_texture *tex, int keycode)*/
-/*{*/
-/*	if (keycode == KEY_W)*/
-/*		tex->_p = tex->_p_b;*/
-/*	else if (keycode == KEY_A)*/
-/*		tex->_p = tex->_p_l;*/
-/*	else if (keycode == KEY_S)*/
-/*		tex->_p = tex->_p_fr;*/
-/*	else if (keycode == KEY_D)*/
-/*		tex->_p = tex->_p_r;*/
-/*}*/
-
-static void	move_player(t_app *game, t_map *map, int x, int y)
+static void rotate_player(t_texture *tex, int keycode)
 {
-	if (map->lvl[y][x] == '1')
+	if (keycode == KEY_W)
+		tex->_p = tex->_p_w;
+	else if (keycode == KEY_A)
+		tex->_p = tex->_p_a;
+	else if (keycode == KEY_S)
+		tex->_p = tex->_p_s;
+	else if (keycode == KEY_D)
+		tex->_p = tex->_p_d;
+}
+
+static void	move_player(t_app *game, int x, int y, int keycode)
+{
+	rotate_player(&game->tex, keycode);
+	if (game->map->lvl[y][x] == '1')
 		return ;
-	if (map->lvl[y][x] == 'E' && game->score == map->coin_count)
+	if (game->map->lvl[y][x] == 'E' && game->score == game->map->coin_count)
 		close_window(game);
-	update_map(game, map, x, y);
-	map->lvl[y][x] = 'P';
+	update_map(game, game->map, x, y);
+	game->map->lvl[y][x] = 'P';
 	++game->moves;
 	ft_printf("moves: %i\n", game->moves);
 }
@@ -66,12 +67,12 @@ int	key_hook(int keycode, t_app *game)
 	if (keycode == KEY_ESCAPE)
 		close_window(game);
 	if (keycode == KEY_W)
-		move_player(game, game->map,x, y - 1);
+		move_player(game, x, y - 1, keycode);
 	if (keycode == KEY_A)
-		move_player(game, game->map, x - 1, y);
+		move_player(game, x - 1, y, keycode);
 	if (keycode == KEY_S)
-		move_player(game, game->map, x, y + 1);
+		move_player(game, x, y + 1, keycode);
 	if (keycode == KEY_D)
-		move_player(game, game->map, x + 1, y);
+		move_player(game, x + 1, y, keycode);
 	return (0);
 }
