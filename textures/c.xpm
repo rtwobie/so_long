@@ -1,5 +1,5 @@
 /* XPM */
-static char *so_long_c1744419971[] = {
+static char *result[] = {
 /* columns rows colors chars-per-pixel */
 "96 96 34 1 ",
 "  c #350D01",
@@ -70,9 +70,9 @@ static char *so_long_c1744419971[] = {
 "...%%%%%%   $$$$$$$$$$$$,,,888eeeeeeeeeeeeeeeeeeeeeeeeeee222222888,,,$$$$$$$$$$$$$$$$$$$$$   ...",
 "...%%%%%%   $$$$$$$$$$$$,,,888eeeeeeeeeeeeeeeeeeeeeeeeeee222222888,,,$$$$$$$$$$$$$$$$$$$$$   ...",
 "...%%%%%%   $$$$$$$$$$$$,,,888eeeeeeeeeeeeeeeeeeeeeeeeeee222222888,,,$$$$$$$$$$$$$$$$$$$$$   ...",
-"%%%%%%      $$$$$$oooooo-==877eeeeeeeeeeeeeeeeeeeeeeee111111111888,,,$$$$$$$$$$$$ooo$$$$$$   %%%",
-"%%%%%%      $$$$$$oooooo--=877eeeeeeeeeeeeeeeeeeeeeeee111111111888,,,$$$$$$$$$$$$ooo$$$$$$   %%%",
-"%%%%%%      $$$$$$oooooo--=777eeeeeeeeeeeeeeeeeeeeeeee111111111888,,,$$$$$$$$$$$$ooo$$$$$$   %%%",
+"%%%%%%      $$$$$$oooooo---777eeeeeeeeeeeeeeeeeeeeeeee111111111888,,,$$$$$$$$$$$$ooo$$$$$$   %%%",
+"%%%%%%      $$$$$$oooooo---777eeeeeeeeeeeeeeeeeeeeeeee111111111888,,,$$$$$$$$$$$$ooo$$$$$$   %%%",
+"%%%%%%      $$$$$$oooooo---777eeeeeeeeeeeeeeeeeeeeeeee111111111888,,,$$$$$$$$$$$$ooo$$$$$$   %%%",
 "...%%%   $$$$$$$$$$$$oooXXX===888eeeeeeeeeeeeeeeeee222222eee888,,,$$$$$$oooooo$$$$$$$$$$$$   %%%",
 "...%%%   $$$$$$$$$$$$oooXXX===888eeeeeeeeeeeeeeeeee222222eee888,,,$$$$$$oooooo$$$$$$$$$$$$   %%%",
 "...%%%   $$$$$$$$$$$$oooXXX===888eeeeeeeeeeeeeeeeee222222eee888,,,$$$$$$oooooo$$$$$$$$$$$$   %%%",
