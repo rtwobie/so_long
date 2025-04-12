@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.h                                             :+:      :+:    :+:   */
+/*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/27 02:22:00 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/09 17:49:20 by rha-le           ###   ########.fr       */
+/*   Created: 2025/04/11 16:16:50 by rha-le            #+#    #+#             */
+/*   Updated: 2025/04/11 16:17:20 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DRAW_H
-# define DRAW_H
+#ifndef GAME_H
+# define GAME_H
 
 # include "structs.h"
 
-int		draw_map(t_app *game);
-void	destroy_textures(t_app *game);
-void	load_textures(t_app *game);
+void	init_game(t_app *game);
 
-#endif // !DRAW_H
+#endif // !GAME_H

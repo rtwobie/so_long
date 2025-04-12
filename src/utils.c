@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "draw.h"
 #include "libft.h"
 #include "structs.h"
+#include <mlx.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -34,6 +36,15 @@ void	*free_all(t_map *map)
 		free(map->coin);
 	free(map);
 	return (NULL);
+}
+
+int	close_window(t_app *game)
+{
+	mlx_destroy_window(game->app, game->win);
+	destroy_textures(game);
+	free(game->app);
+	free(game);
+	exit(0);
 }
 
 void	print_error(char *s)

@@ -19,5 +19,6 @@ void	print_error(char *s);
 void	*free_lvl(char **p);
 void	*free_all(t_map *map);
 void	print_map(char **lvl);
+int		close_window(t_app *game);
 
 #endif // !UTILS_H
