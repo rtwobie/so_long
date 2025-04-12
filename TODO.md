@@ -1,9 +1,10 @@
 - [x] test with empty.ber
 - [x] write better CHARSET check (duplicates of objects)
-- [ ] add if cases for several mlx functions
-- [ ] fix the case: coin_blocked_by_E.ber
-- [ ] fix the case: big_map.ber
-- [ ] fix rendering when window gets resized
+- [x] fix the case: coin_blocked_by_E.ber
+- [x] fix the case: big_map.ber
+- [x] fix rendering when window gets resized
+- [ ] add if cases for several mlx functions if needed
+- [ ] do i need if cases in (destroy_textures() & load_textures()) for not found textures
 
 #### Last Tests
 
