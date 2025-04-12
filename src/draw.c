@@ -18,25 +18,36 @@
 
 void	load_textures(t_app *game)
 {
-	int w;
-	int h;
+	int	w;
+	int	h;
+
 	game->tex._0 = mlx_xpm_file_to_image \
 		(game->app, "textures/0.xpm", &w, &h);
 	game->tex._1 = mlx_xpm_file_to_image \
 		(game->app, "textures/1.xpm", &w, &h);
-	game->tex._p = mlx_xpm_file_to_image \
-		(game->app, "textures/p_front.xpm", &w, &h);
 	game->tex._c = mlx_xpm_file_to_image \
 		(game->app, "textures/c.xpm", &w, &h);
 	game->tex._e = mlx_xpm_file_to_image \
 		(game->app, "textures/e.xpm", &w, &h);
+	game->tex._p_w = mlx_xpm_file_to_image \
+		(game->app, "textures/p_back.xpm", &w, &h);
+	game->tex._p_a = mlx_xpm_file_to_image \
+		(game->app, "textures/p_face_left.xpm", &w, &h);
+	game->tex._p_s = mlx_xpm_file_to_image \
+		(game->app, "textures/p_front.xpm", &w, &h);
+	game->tex._p_d = mlx_xpm_file_to_image \
+		(game->app, "textures/p_face_right.xpm", &w, &h);
+	game->tex._p = game->tex._p_s;
 }
 
 void	destroy_textures(t_app *game)
 {
 	mlx_destroy_image(game->app, game->tex._0);
 	mlx_destroy_image(game->app, game->tex._1);
-	mlx_destroy_image(game->app, game->tex._p);
+	mlx_destroy_image(game->app, game->tex._p_w);
+	mlx_destroy_image(game->app, game->tex._p_a);
+	mlx_destroy_image(game->app, game->tex._p_s);
+	mlx_destroy_image(game->app, game->tex._p_d);
 	mlx_destroy_image(game->app, game->tex._c);
 	mlx_destroy_image(game->app, game->tex._e);
 }
