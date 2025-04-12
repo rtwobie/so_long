@@ -48,7 +48,7 @@ static int	get_dimensions(char *s, int *x, int *y)
 	while (*s)
 	{
 		if (check_charset(s))
-			return (1);
+			return (2);
 		if (*s == '\n' && *y > 1 && *((s - *x) - 1) != '\n')
 			return (1);
 		if (*s == '\n')
@@ -61,8 +61,8 @@ static int	get_dimensions(char *s, int *x, int *y)
 		++(*y);
 	else if (*(s - 1) == '\n' && *((s - *x) - 2) != '\n')
 		return (1);
-	else if (*y < 3)
-		return (1);
+	else if (*y < 3 || *x < 3)
+		return (3);
 	return (0);
 }
 
@@ -102,7 +102,7 @@ static char	*read_file(t_map *map, int fd)
 	free(buf);
 	if (get_dimensions(file, &map->w, &map->h))
 	{
-		print_error("Map Invalid: Inconsistent Dimensions!\n");
+		print_error("Map Invalid: Incorrect Dimensions or Invalid Char!\n");
 		(free(file), free_all(map), (close(fd), exit(1)));
 	}
 	return (file);
