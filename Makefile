@@ -44,6 +44,7 @@ SRC		:=
 
 vpath %.c src/
 SRC		+= main.c
+SRC		+= game.c
 SRC		+= input.c
 SRC		+= draw.c
 SRC		+= lvl.c

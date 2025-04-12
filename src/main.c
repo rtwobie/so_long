@@ -11,11 +11,10 @@
 /* ************************************************************************** */
 
 #include <mlx.h>
-#include <stdlib.h>
-#include "draw.h"
 #include "libft.h"
 #include "structs.h"
 #include "map.h"
+#include "game.h"
 #include "utils.h"
 
 int	main(int argc, char **argv)
