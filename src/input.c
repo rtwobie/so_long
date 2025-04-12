@@ -16,48 +16,62 @@
 #include "structs.h"
 #include "draw.h"
 
-void	render_update(t_app *game, int x, int y)
+static void	update_map(t_app *game, t_map *map, int x, int y)
 {
-	mlx_put_image_to_window(game->app, game->win, game->tex._p, x * TILE_SIZE, y * TILE_SIZE);
-	if (game->map->lvl[game->map->player.y][game->map->player.x] == 'E')
-		mlx_put_image_to_window(game->app, game->win, game->tex._e, game->map->exit.x * TILE_SIZE, game->map->exit.y * TILE_SIZE);
-	else
-		mlx_put_image_to_window(game->app, game->win, game->tex._0, game->map->player.x * TILE_SIZE, game->map->player.y * TILE_SIZE);
-}
-
-void	move_player(t_app *game, int x, int y)
-{
-	if (game->map->lvl[y][x] == '1')
-		return ;
-	if (game->map->lvl[y][x] == 'E' && game->score != game->map->coin_count)
-		return ;
-	render_update(game, x, y);
-	if (game->map->lvl[y][x] == 'E')
-		close_window(game);
-	if (game->map->lvl[y][x] == 'C')
+	if (map->lvl[y][x] == 'C')
 	{
 		++game->score;
-		game->map->lvl[y][x] = '0';
-		ft_printf("coins: %i/%i\n", game->score, game->map->coin_count);
+		map->lvl[y][x] = '0';
+		ft_printf("coins: %i/%i\n", game->score, map->coin_count);
 	}
-	game->map->player.x = x;
-	game->map->player.y = y;
+	if (map->player.y == map->exit.y && map->player.x == map->exit.x)
+		map->lvl[map->player.y][map->player.x] = 'E';
+	else
+		map->lvl[map->player.y][map->player.x] = '0';
+	map->player.x = x;
+	map->player.y = y;
+}
+
+/*static void rotate_player(t_texture *tex, int keycode)*/
+/*{*/
+/*	if (keycode == KEY_W)*/
+/*		tex->_p = tex->_p_b;*/
+/*	else if (keycode == KEY_A)*/
+/*		tex->_p = tex->_p_l;*/
+/*	else if (keycode == KEY_S)*/
+/*		tex->_p = tex->_p_fr;*/
+/*	else if (keycode == KEY_D)*/
+/*		tex->_p = tex->_p_r;*/
+/*}*/
+
+static void	move_player(t_app *game, t_map *map, int x, int y)
+{
+	if (map->lvl[y][x] == '1')
+		return ;
+	if (map->lvl[y][x] == 'E' && game->score == map->coin_count)
+		close_window(game);
+	update_map(game, map, x, y);
+	map->lvl[y][x] = 'P';
 	++game->moves;
 	ft_printf("moves: %i\n", game->moves);
 }
 
 int	key_hook(int keycode, t_app *game)
 {
-	//ft_printf("%i\n", keycode); // NOTE: Delete after!
+	int	x;
+	int	y;
+
+	x = game->map->player.x;
+	y = game->map->player.y;
 	if (keycode == KEY_ESCAPE)
 		close_window(game);
 	if (keycode == KEY_W)
-		move_player(game, game->map->player.x, game->map->player.y - 1);
+		move_player(game, game->map,x, y - 1);
 	if (keycode == KEY_A)
-		move_player(game, game->map->player.x - 1, game->map->player.y);
+		move_player(game, game->map, x - 1, y);
 	if (keycode == KEY_S)
-		move_player(game, game->map->player.x, game->map->player.y + 1);
+		move_player(game, game->map, x, y + 1);
 	if (keycode == KEY_D)
-		move_player(game, game->map->player.x + 1, game->map->player.y);
+		move_player(game, game->map, x + 1, y);
 	return (0);
 }
