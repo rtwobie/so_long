@@ -70,13 +70,14 @@ static void	append_buf(char **s, char *buf)
 {
 	char	*temp;
 
+	temp = NULL;
 	if (*s)
 		temp = *s;
-	else
-		temp = "";
-	*s = ft_strjoin(temp, buf);
 	if (!temp)
-		free(temp);
+		*s = ft_strdup(buf);
+	else
+		*s = ft_strjoin(temp, buf);
+	free(temp);
 }
 
 static char	*read_file(t_map *map, int fd)
@@ -85,7 +86,7 @@ static char	*read_file(t_map *map, int fd)
 	char	*file;
 	char	*buf;
 
-	buf = ft_calloc(sizeof(*buf), BYTES_RD);
+	buf = ft_calloc(sizeof(*buf), BYTES_RD + 1);
 	if (!buf)
 		return (NULL);
 	file = NULL;
@@ -97,7 +98,7 @@ static char	*read_file(t_map *map, int fd)
 		if (bread == -1)
 			return (free(buf), NULL);
 		append_buf(&file, buf);
-		ft_memset(buf, 0, BYTES_RD);
+		ft_memset(buf, 0, BYTES_RD + 1);
 	}
 	free(buf);
 	if (get_dimensions(file, &map->w, &map->h))
