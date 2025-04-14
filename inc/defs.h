@@ -18,6 +18,8 @@
 # define MAX_WIN_WIDTH 1536 // 16 * TILE_SIZE
 
 # define CHARSET "10PCE"
+# define TARGET "0CPE"
+
 
 # define KEY_ESCAPE 0xff1b
 # define KEY_W 0x77
