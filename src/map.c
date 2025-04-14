@@ -37,7 +37,7 @@ static int count_obj(t_map *map, char obj)
 	return (count);
 }
 
-static void	get_pos(t_map *map, t_entity *entity, char c)
+static int	get_pos(t_map *map, t_entity *entity, char c)
 {
 	int			x;
 	int			y;
@@ -60,6 +60,9 @@ static void	get_pos(t_map *map, t_entity *entity, char c)
 		}
 		++y;
 	}
+	if (p == entity)
+		return (-1);
+	return (0);
 }
 
 static t_entity	*set_obj_group(t_map *map, size_t count, char obj)
@@ -88,10 +91,11 @@ static int	init_objects(t_map *map)
 		print_error("Map Invalid: No Coins found!\n");
 		exit(1);
 	}
+	map->b0_count = count_obj(map, 'B');
+	map->b0 = set_obj_group(map, (size_t)map->b0_count, 'B');
 	map->coin = set_obj_group(map, (size_t)map->coin_count, 'C');
-	get_pos(map, &map->player, 'P');
-	get_pos(map, &map->exit, 'E');
-	if ((!map->player.x && !map->player.y) || (!map->exit.x && !map->exit.y))
+	if (get_pos(map, &map->player, 'P')  == -1 || \
+		get_pos(map, &map->exit, 'E') == -1)
 	{
 		free_all(map);
 		print_error("Map Invalid: No Player and/or Exit found!\n");

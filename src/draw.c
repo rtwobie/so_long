@@ -24,6 +24,8 @@ void	load_textures(t_app *game)
 
 	game->tex._0 = mlx_xpm_file_to_image \
 		(game->app, "textures/0.xpm", &w, &h);
+	game->tex._0_b = mlx_xpm_file_to_image \
+		(game->app, "textures/0_b.xpm", &w, &h);
 	game->tex._1 = mlx_xpm_file_to_image \
 		(game->app, "textures/1.xpm", &w, &h);
 	game->tex._c = mlx_xpm_file_to_image \
@@ -46,6 +48,7 @@ void	load_textures(t_app *game)
 void	destroy_textures(t_app *game)
 {
 	mlx_destroy_image(game->app, game->tex._0);
+	mlx_destroy_image(game->app, game->tex._0_b);
 	mlx_destroy_image(game->app, game->tex._1);
 	mlx_destroy_image(game->app, game->tex._c);
 	mlx_destroy_image(game->app, game->tex._e);
@@ -65,6 +68,8 @@ static void	render_cell(t_app *game, int x, int y)
 	cell = game->map->lvl[y][x];
 	if (cell == '0')
 		texture = game->tex._0;
+	else if (cell == 'B')
+		texture = game->tex._0_b;
 	else if (cell == '1')
 		texture = game->tex._1;
 	else if (cell == 'P')

@@ -26,7 +26,8 @@ typedef struct s_map
 	int			h;
 	int			coin_count;
 	t_entity	*coin;
-	t_entity	*broken0;
+	int			b0_count;
+	t_entity	*b0;
 	t_entity	exit;
 	t_entity	player;
 }	t_map;

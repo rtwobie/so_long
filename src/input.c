@@ -15,6 +15,20 @@
 #include "structs.h"
 #include "utils.h"
 
+static int	check_surface(t_map *map, t_entity *player)
+{
+	int i;
+
+
+	i = -1;
+	while (++i < map->b0_count)
+	{
+		if (player->y == map->b0[i].y && player->x == map->b0[i].x)
+			return (1);
+	}
+	return (0);
+}
+
 static void	update_map(t_app *game, t_map *map, int x, int y)
 {
 	if (map->lvl[y][x] == 'C')
@@ -27,6 +41,8 @@ static void	update_map(t_app *game, t_map *map, int x, int y)
 		game->tex._p = game->tex._p_e;
 	if (map->player.y == map->exit.y && map->player.x == map->exit.x)
 		map->lvl[map->player.y][map->player.x] = 'E';
+	else if (check_surface(map, &map->player) == 'B')
+		map->lvl[map->player.y][map->player.x] = '1';
 	else
 		map->lvl[map->player.y][map->player.x] = '0';
 	map->player.x = x;
