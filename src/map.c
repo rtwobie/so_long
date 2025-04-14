@@ -37,9 +37,9 @@ static void	count_coins(t_map *map)
 
 static void	get_pos(t_map *map, t_entity *entity, char c)
 {
-	int	x;
-	int	y;
-	t_entity *p;
+	int			x;
+	int			y;
+	t_entity	*p;
 
 	y = 0;
 	p = entity;

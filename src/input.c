@@ -34,7 +34,7 @@ static void	update_map(t_app *game, t_map *map, int x, int y)
 	map->player.y = y;
 }
 
-static void rotate_player(t_texture *tex, int keycode)
+static void	rotate_player(t_texture *tex, int keycode)
 {
 	if (keycode == KEY_W)
 		tex->_p = tex->_p_w;

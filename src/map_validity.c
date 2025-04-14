@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "defs.h"
 #include "libft.h"
 #include "structs.h"
 #include "utils.h"
 #include <stdlib.h>
-
-#define TARGET "0CPE"
 
 static void	flood_fill(t_map *map, char **lvl, int x, int y)
 {
@@ -49,7 +48,7 @@ static int	check_border(char **lvl, int w, int h)
 	return (0);
 }
 
-int is_obj_reachable(t_map *map, char **filled_lvl)
+static int	is_obj_reachable(t_map *map, char **filled_lvl)
 {
 	int	i;
 
@@ -65,25 +64,33 @@ int is_obj_reachable(t_map *map, char **filled_lvl)
 	return (1);
 }
 
-int	is_mapvalid(t_map *map)
+static char	**copy_lvl(char **lvl, int h)
 {
 	int		i;
-	char	**temp;
+	char	**copy;
 
-	temp = malloc(sizeof(char *) * (size_t)(map->h + 1));
-	if (!temp)
+	copy = malloc(sizeof(char *) * (size_t)(h + 1));
+	if (!copy)
 		return (0);
 	i = -1;
-	while (++i < map->h)
+	while (++i < h)
 	{
-		temp[i] = ft_strdup(map->lvl[i]);
-		if (!temp[i])
+		copy[i] = ft_strdup(lvl[i]);
+		if (!copy[i])
 		{
-			free_lvl(temp);
+			free_lvl(copy);
 			return (0);
 		}
 	}
-	temp[map->h] = NULL;
+	copy[h] = NULL;
+	return (copy);
+}
+
+int	is_mapvalid(t_map *map)
+{
+	char	**temp;
+
+	temp = copy_lvl(map->lvl, map->h);
 	flood_fill(map, temp, map->player.x, map->player.y);
 	if (check_border(temp, map->w, map->h) == -1)
 	{
@@ -98,4 +105,3 @@ int	is_mapvalid(t_map *map)
 	free_lvl(temp);
 	return (1);
 }
-

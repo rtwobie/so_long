@@ -60,7 +60,7 @@ void	print_error(char *s)
 		perror(s);
 }
 
-void print_map(char **lvl)
+void	print_map(char **lvl)
 {
 	int	i;
 
@@ -71,4 +71,3 @@ void print_map(char **lvl)
 		ft_putchar_fd('\n', 1);
 	}
 }
-

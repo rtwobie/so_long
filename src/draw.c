@@ -15,6 +15,7 @@
 #include "defs.h"
 #include "structs.h"
 #include "draw.h"
+#include "utils.h"
 
 void	load_textures(t_app *game)
 {
@@ -72,10 +73,17 @@ static void	render_cell(t_app *game, int x, int y)
 		texture = game->tex._c;
 	if (cell == 'E')
 		texture = game->tex._e;
-	mlx_put_image_to_window(game->app, game->win, texture, x * TILE_SIZE, y * TILE_SIZE);
+	if (texture)
+		mlx_put_image_to_window \
+			(game->app, game->win, texture, x * TILE_SIZE, y * TILE_SIZE);
+	else
+	{
+		print_error("Texture not found!");
+		close_window(game);
+	}
 }
 
-int draw_map(t_app *game)
+int	draw_map(t_app *game)
 {
 	int		y;
 	int		x;

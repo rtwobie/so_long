@@ -19,24 +19,22 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc != 2)
-		return (1);
 	t_app	*game;
 	t_map	*map;
 
+	if (argc != 2)
+	{
+		print_error("Choose A Level!\n");
+		return (1);
+	}
 	map = ft_calloc(1, sizeof(*map));
-	if (!map)
-		return (1);
-
-	init_map(map, argv[1]);
-
 	game = ft_calloc(1, sizeof(*game));
-	if (!game)
+	if (!map || !game)
 		return (1);
+	init_map(map, argv[1]);
 	game->map = map;
 	ft_printf("moves: %i\n", game->moves);
 	init_game(game);
-
 	close_window(game);
 	return (0);
 }

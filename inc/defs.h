@@ -20,7 +20,6 @@
 # define CHARSET "10PCE"
 # define TARGET "0CPE"
 
-
 # define KEY_ESCAPE 0xff1b
 # define KEY_W 0x77
 # define KEY_A 0x61
