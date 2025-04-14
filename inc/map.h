@@ -14,7 +14,6 @@
 # define MAP_H
 
 # include "structs.h"
-# include <unistd.h>
 
 # ifndef BYTES_RD
 #  define BYTES_RD 1024

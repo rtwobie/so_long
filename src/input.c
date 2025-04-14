@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include "defs.h"
 #include "ft_printf.h"
 #include "structs.h"
