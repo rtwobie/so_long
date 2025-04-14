@@ -28,10 +28,12 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	map = ft_calloc(1, sizeof(*map));
-	game = ft_calloc(1, sizeof(*game));
-	if (!map || !game)
+	if (!map)
 		return (1);
 	init_map(map, argv[1]);
+	game = ft_calloc(1, sizeof(*game));
+	if (!game)
+		return (1);
 	game->map = map;
 	ft_printf("moves: %i\n", game->moves);
 	init_game(game);
