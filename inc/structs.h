@@ -26,6 +26,7 @@ typedef struct s_map
 	int			h;
 	int			coin_count;
 	t_entity	*coin;
+	t_entity	*broken0;
 	t_entity	exit;
 	t_entity	player;
 }	t_map;
@@ -34,6 +35,7 @@ typedef struct s_texture
 {
 	void	*_1;
 	void	*_0;
+	void	*_0_b;
 	void	*_c;
 	void	*_e;
 	void	*_p;

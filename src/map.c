@@ -16,23 +16,25 @@
 #include "utils.h"
 #include <stdlib.h>
 
-static void	count_coins(t_map *map)
+static int count_obj(t_map *map, char obj)
 {
 	int	x;
 	int	y;
+	int	count;
 
 	y = 0;
-	map->coin_count = 0;
+	count = 0;
 	while (y < map->h)
 	{
 		x = 0;
 		while (x < map->w)
 		{
-			map->coin_count += (map->lvl[y][x] == 'C');
+			count += (map->lvl[y][x] == obj);
 			++x;
 		}
 		++y;
 	}
+	return (count);
 }
 
 static void	get_pos(t_map *map, t_entity *entity, char c)
@@ -60,33 +62,33 @@ static void	get_pos(t_map *map, t_entity *entity, char c)
 	}
 }
 
-static t_entity	*init_coins(t_map *map, size_t count)
+static t_entity	*set_obj_group(t_map *map, size_t count, char obj)
 {
 	size_t		i;
-	t_entity	*coins;
+	t_entity	*group;
 
-	coins = ft_calloc(count, sizeof(*coins));
-	if (!coins)
+	group = ft_calloc(count, sizeof(*group));
+	if (!group)
 		return (NULL);
 	i = 0;
 	while (i < count)
 	{
-		get_pos(map, coins, 'C');
+		get_pos(map, group, obj);
 		++i;
 	}
-	return (coins);
+	return (group);
 }
 
 static int	init_objects(t_map *map)
 {
-	count_coins(map);
+	map->coin_count = count_obj(map, 'C');
 	if (!map->coin_count)
 	{
 		free_all(map);
 		print_error("Map Invalid: No Coins found!\n");
 		exit(1);
 	}
-	map->coin = init_coins(map, (size_t)map->coin_count);
+	map->coin = set_obj_group(map, (size_t)map->coin_count, 'C');
 	get_pos(map, &map->player, 'P');
 	get_pos(map, &map->exit, 'E');
 	if ((!map->player.x && !map->player.y) || (!map->exit.x && !map->exit.y))
