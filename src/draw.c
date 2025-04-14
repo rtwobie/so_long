@@ -65,13 +65,13 @@ static void	render_cell(t_app *game, int x, int y)
 	cell = game->map->lvl[y][x];
 	if (cell == '0')
 		texture = game->tex._0;
-	if (cell == '1')
+	else if (cell == '1')
 		texture = game->tex._1;
-	if (cell == 'P')
+	else if (cell == 'P')
 		texture = game->tex._p;
-	if (cell == 'C')
+	else if (cell == 'C')
 		texture = game->tex._c;
-	if (cell == 'E')
+	else if (cell == 'E')
 		texture = game->tex._e;
 	if (texture)
 		mlx_put_image_to_window \
