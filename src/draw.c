@@ -37,6 +37,8 @@ void	load_textures(t_app *game)
 		(game->app, "textures/p_front.xpm", &w, &h);
 	game->tex._p_d = mlx_xpm_file_to_image \
 		(game->app, "textures/p_face_right.xpm", &w, &h);
+	game->tex._p_e = mlx_xpm_file_to_image \
+		(game->app, "textures/p_front_e.xpm", &w, &h);
 	game->tex._p = game->tex._p_s;
 }
 
@@ -44,12 +46,13 @@ void	destroy_textures(t_app *game)
 {
 	mlx_destroy_image(game->app, game->tex._0);
 	mlx_destroy_image(game->app, game->tex._1);
+	mlx_destroy_image(game->app, game->tex._c);
+	mlx_destroy_image(game->app, game->tex._e);
 	mlx_destroy_image(game->app, game->tex._p_w);
 	mlx_destroy_image(game->app, game->tex._p_a);
 	mlx_destroy_image(game->app, game->tex._p_s);
 	mlx_destroy_image(game->app, game->tex._p_d);
-	mlx_destroy_image(game->app, game->tex._c);
-	mlx_destroy_image(game->app, game->tex._e);
+	mlx_destroy_image(game->app, game->tex._p_e);
 }
 
 static void	render_cell(t_app *game, int x, int y)

@@ -24,6 +24,8 @@ static void	update_map(t_app *game, t_map *map, int x, int y)
 		map->lvl[y][x] = '0';
 		ft_printf("coins: %i/%i\n", game->score, map->coin_count);
 	}
+	if (y == map->exit.y && x == map->exit.x)
+		game->tex._p = game->tex._p_e;
 	if (map->player.y == map->exit.y && map->player.x == map->exit.x)
 		map->lvl[map->player.y][map->player.x] = 'E';
 	else

@@ -41,6 +41,7 @@ typedef struct s_texture
 	void	*_p_a;
 	void	*_p_s;
 	void	*_p_d;
+	void	*_p_e;
 }	t_texture;
 
 typedef struct s_app
