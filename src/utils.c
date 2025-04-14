@@ -40,9 +40,13 @@ void	*free_all(t_map *map)
 
 int	close_window(t_app *game)
 {
-	mlx_destroy_window(game->app, game->win);
 	destroy_textures(game);
-	free(game->app);
+	mlx_destroy_window(game->app, game->win);
+	mlx_destroy_display(game->app);
+	if (game->map)
+		free_all(game->map);
+	if (game->app)
+		free(game->app);
 	free(game);
 	exit(0);
 }
