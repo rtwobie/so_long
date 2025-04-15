@@ -91,9 +91,13 @@ static int	init_objects(t_map *map)
 		print_error("Map Invalid: No Coins found!\n");
 		exit(1);
 	}
+	map->coin = set_obj_group(map, (size_t)map->coin_count, 'C');
 	map->b0_count = count_obj(map, 'B');
 	map->b0 = set_obj_group(map, (size_t)map->b0_count, 'B');
-	map->coin = set_obj_group(map, (size_t)map->coin_count, 'C');
+	map->l_count = count_obj(map, 'l');
+	map->l = set_obj_group(map, (size_t)map->l_count, 'l');
+	map->k_count = count_obj(map, 'K');
+	map->k = set_obj_group(map, (size_t)map->k_count, 'K');
 	if (get_pos(map, &map->player, 'P')  == -1 || \
 		get_pos(map, &map->exit, 'E') == -1)
 	{
