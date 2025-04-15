@@ -17,8 +17,8 @@
 # define MAX_WIN_HEIGHT 864 // 9 * TILE_SIZE
 # define MAX_WIN_WIDTH 1536 // 16 * TILE_SIZE
 
-# define CHARSET "10PCE"
-# define TARGET "0CPE"
+# define CHARSET "10PCEBlK"
+# define TARGET "0CPEBlK"
 
 # define KEY_ESCAPE 0xff1b
 # define KEY_W 0x77

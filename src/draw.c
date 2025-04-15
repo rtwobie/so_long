@@ -24,6 +24,12 @@ void	load_textures(t_app *game)
 
 	game->tex._0 = mlx_xpm_file_to_image \
 		(game->app, "textures/0.xpm", &w, &h);
+	game->tex._0_b = mlx_xpm_file_to_image \
+		(game->app, "textures/0_b.xpm", &w, &h);
+	game->tex._l0 = mlx_xpm_file_to_image \
+		(game->app, "textures/l_0.xpm", &w, &h);
+	game->tex._l1= mlx_xpm_file_to_image \
+		(game->app, "textures/l_1.xpm", &w, &h);
 	game->tex._1 = mlx_xpm_file_to_image \
 		(game->app, "textures/1.xpm", &w, &h);
 	game->tex._c = mlx_xpm_file_to_image \
@@ -40,12 +46,19 @@ void	load_textures(t_app *game)
 		(game->app, "textures/p_face_right.xpm", &w, &h);
 	game->tex._p_e = mlx_xpm_file_to_image \
 		(game->app, "textures/p_front_e.xpm", &w, &h);
+	game->tex._p_b = mlx_xpm_file_to_image \
+		(game->app, "textures/p_front_b.xpm", &w, &h);
 	game->tex._p = game->tex._p_s;
+	game->tex._l = game->tex._l0;
+	game->tex._k = game->tex._l1;
 }
 
 void	destroy_textures(t_app *game)
 {
 	mlx_destroy_image(game->app, game->tex._0);
+	mlx_destroy_image(game->app, game->tex._0_b);
+	mlx_destroy_image(game->app, game->tex._l0);
+	mlx_destroy_image(game->app, game->tex._l1);
 	mlx_destroy_image(game->app, game->tex._1);
 	mlx_destroy_image(game->app, game->tex._c);
 	mlx_destroy_image(game->app, game->tex._e);
@@ -54,6 +67,7 @@ void	destroy_textures(t_app *game)
 	mlx_destroy_image(game->app, game->tex._p_s);
 	mlx_destroy_image(game->app, game->tex._p_d);
 	mlx_destroy_image(game->app, game->tex._p_e);
+	mlx_destroy_image(game->app, game->tex._p_b);
 }
 
 static void	render_cell(t_app *game, int x, int y)
@@ -65,6 +79,12 @@ static void	render_cell(t_app *game, int x, int y)
 	cell = game->map->lvl[y][x];
 	if (cell == '0')
 		texture = game->tex._0;
+	else if (cell == 'B')
+		texture = game->tex._0_b;
+	else if (cell == 'l' || cell == 'L')
+		texture = game->tex._l;
+	else if (cell == 'K' || cell == 'k')
+		texture = game->tex._k;
 	else if (cell == '1')
 		texture = game->tex._1;
 	else if (cell == 'P')

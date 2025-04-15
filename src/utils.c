@@ -34,6 +34,12 @@ void	*free_all(t_map *map)
 		free_lvl(map->lvl);
 	if (map->coin)
 		free(map->coin);
+	if (map->b0)
+		free(map->b0);
+	if (map->l)
+		free(map->l);
+	if (map->k)
+		free(map->k);
 	free(map);
 	return (NULL);
 }
