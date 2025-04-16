@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:41 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/09 17:43:22 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/16 21:56:12 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,22 @@ static void lava_trap_state(t_app *game, t_map *map)
 
 	i = -1;
 	j = -1;
-	if (map->trap_state == 0)
+	++map->trap_state;
+	if (map->trap_state == 1)
 	{
-		while (++i < map->l_count)
-			map->lvl[map->l[i].y][map->l[i].x] = 'L';
 		while (++j < map->k_count)
 			map->lvl[map->k[j].y][map->k[j].x] = 'k';
-		game->tex._l = game->tex._t3;
+		game->tex._l = game->tex._t2;
 		game->tex._k = game->tex._t1;
 	}
 	else if (map->trap_state == 2)
+	{
+		while (++i < map->l_count)
+			map->lvl[map->l[i].y][map->l[i].x] = 'L';
+		game->tex._l = game->tex._t3;
+		game->tex._k = game->tex._t2;
+	}
+	else if (map->trap_state == 3)
 	{
 		while (++i < map->l_count)
 			map->lvl[map->l[i].y][map->l[i].x] = 'l';
@@ -96,11 +102,8 @@ static void lava_trap_state(t_app *game, t_map *map)
 			map->lvl[map->k[j].y][map->k[j].x] = 'K';
 		game->tex._l = game->tex._t1;
 		game->tex._k = game->tex._t3;
-	}
-	if (map->trap_state == 3)
 		map->trap_state = 0;
-	else
-		++map->trap_state;
+	}
 	ft_printf("state: %i\n", map->trap_state);
 }
 
