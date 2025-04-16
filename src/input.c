@@ -54,7 +54,7 @@ static void	update_map(t_app *game, t_map *map, int x, int y)
 	else if (is_on_obj(map->b0, map->b0_count, x, y))
 		game->tex._p = game->tex._p_b;
 	else if (is_on_obj(map->l, map->l_count, x, y) || is_on_obj(map->k, map->k_count, x, y))
-		game->tex._p = game->tex._p_b;
+		game->tex._p = game->tex._p_t1;
 	map->lvl[map->player.y][map->player.x] = place_surface(map, &map->player);
 	map->player.x = x;
 	map->player.y = y;
@@ -85,8 +85,8 @@ static void lava_trap_state(t_app *game, t_map *map)
 			map->lvl[map->l[i].y][map->l[i].x] = 'L';
 		while (++j < map->k_count)
 			map->lvl[map->k[j].y][map->k[j].x] = 'k';
-		game->tex._l = game->tex._l1;
-		game->tex._k = game->tex._l0;
+		game->tex._l = game->tex._t3;
+		game->tex._k = game->tex._t1;
 	}
 	else if (map->trap_state == 2)
 	{
@@ -94,8 +94,8 @@ static void lava_trap_state(t_app *game, t_map *map)
 			map->lvl[map->l[i].y][map->l[i].x] = 'l';
 		while (++j < map->k_count)
 			map->lvl[map->k[j].y][map->k[j].x] = 'K';
-		game->tex._l = game->tex._l0;
-		game->tex._k = game->tex._l1;
+		game->tex._l = game->tex._t1;
+		game->tex._k = game->tex._t3;
 	}
 	if (map->trap_state == 3)
 		map->trap_state = 0;
