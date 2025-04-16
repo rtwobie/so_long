@@ -45,6 +45,7 @@ typedef struct s_texture
 	void	*_l;
 	void	*_k;
 	void	*_t1;
+	void	*_t2;
 	void	*_t3;
 	void	*_c;
 	void	*_e;
@@ -55,6 +56,7 @@ typedef struct s_texture
 	void	*_p_d;
 	void	*_p_e;
 	void	*_p_t1;
+	/*void	*_p_t2;*/
 	void	*_p_b;
 }	t_texture;
 

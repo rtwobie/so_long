@@ -47,6 +47,7 @@ SRC		+= main.c
 SRC		+= game.c
 SRC		+= input.c
 SRC		+= draw.c
+SRC		+= textures.c
 SRC		+= lvl.c
 SRC		+= map.c
 SRC		+= map_validity.c

@@ -6,13 +6,13 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:51:23 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/09 16:36:21 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/16 21:39:27 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "draw.h"
 #include "libft.h"
 #include "structs.h"
+#include "textures.h"
 #include <mlx.h>
 #include <stdio.h>
 #include <stdlib.h>

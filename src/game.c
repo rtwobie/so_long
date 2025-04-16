@@ -6,13 +6,14 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:15:29 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/11 16:24:14 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/16 21:38:55 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "defs.h"
 #include "structs.h"
 #include "draw.h"
+#include "textures.h"
 #include "input.h"
 #include "utils.h"
 #include <mlx.h>
@@ -21,7 +22,7 @@
 static void	set_window_size(t_map *map, int *w, int *h)
 {
 	*w = map->w * TILE_SIZE;
-	*h = map->h * TILE_SIZE;
+	*h = map->h * TILE_SIZE + 32;
 	if (*h > MAX_WIN_HEIGHT)
 		*h = MAX_WIN_HEIGHT;
 	if (*w > MAX_WIN_WIDTH)

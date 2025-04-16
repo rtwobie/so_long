@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:22:00 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/09 17:49:20 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/16 21:38:17 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,5 @@
 # include "structs.h"
 
 int		draw_map(t_app *game);
-void	destroy_textures(t_app *game);
-void	load_textures(t_app *game);
 
 #endif // !DRAW_H
