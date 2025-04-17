@@ -1,5 +1,5 @@
 /* XPM */
-static char *HUD_01744829230[] = {
+static char *HUD_01744857052[] = {
 /* columns rows colors chars-per-pixel */
 "32 32 6 1 ",
 "  c #0E143A",
@@ -25,10 +25,10 @@ static char *HUD_01744829230[] = {
 "X         .X+OOOOOOOX.         X",
 "X         .XOOOOOOOOX.         X",
 "X         .XOOOOOOOOX.         X",
-"X         .XOO.OOOOOX.         X",
-"X         .XO...OOOoX.         X",
-"X         .XO...OOooX.         X",
-"X         .XOO.OOOooX.         X",
+"X         .XOO..OOOOX.         X",
+"X         .XOO..OOOoX.         X",
+"X         .XOO..OOooX.         X",
+"X         .XOO..OOooX.         X",
 "X         .XOOOOOooOX.         X",
 "X          .XXXXXXXX.          X",
 "X           ........           X",
