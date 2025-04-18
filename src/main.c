@@ -35,7 +35,6 @@ int	main(int argc, char **argv)
 	if (!game)
 		return (1);
 	game->map = map;
-	ft_printf("moves: %i\n", game->moves);
 	init_game(game);
 	close_window(game);
 	return (0);

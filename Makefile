@@ -46,8 +46,11 @@ vpath %.c src/
 SRC		+= main.c
 SRC		+= game.c
 SRC		+= input.c
+SRC		+= traps.c
 SRC		+= draw.c
 SRC		+= textures.c
+SRC		+= load_tex.c
+SRC		+= destroy_tex.c
 SRC		+= lvl.c
 SRC		+= map.c
 SRC		+= map_validity.c
