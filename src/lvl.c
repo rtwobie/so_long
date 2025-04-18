@@ -118,14 +118,14 @@ int	create_lvl(char *filename, t_map *map)
 	if (fd == -1)
 	{
 		print_error("Failed to open map");
-		exit(1);
+		return (-1);
 	}
 	buf = read_file(map, fd);
 	if (!buf)
 	{
 		print_error("Failed to read map");
 		close(fd);
-		exit(1);
+		return (-1);
 	}
 	map->lvl = ft_split(buf, '\n');
 	free(buf);

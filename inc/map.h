@@ -19,8 +19,9 @@
 #  define BYTES_RD 1024
 # endif
 
-int	init_map(t_map *map, char *filename);
-int	create_lvl(char *filename, t_map *map);
-int	is_mapvalid(t_map *map);
+int		init_map(t_map *map, char *filename);
+int		create_lvl(char *filename, t_map *map);
+int		is_mapvalid(t_map *map);
+char	**copy_lvl(char **lvl, int h);
 
 #endif //!MAP_H

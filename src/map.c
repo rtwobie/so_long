@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:19:26 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/08 18:28:53 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/18 03:07:03 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "utils.h"
 #include <stdlib.h>
 
-static int count_obj(t_map *map, char obj)
+static int	count_obj(t_map *map, char obj)
 {
 	int	x;
 	int	y;
@@ -98,7 +98,7 @@ static int	init_objects(t_map *map)
 	map->l = set_obj_group(map, (size_t)map->l_count, 'l');
 	map->k_count = count_obj(map, 'K');
 	map->k = set_obj_group(map, (size_t)map->k_count, 'K');
-	if (get_pos(map, &map->player, 'P')  == -1 || \
+	if (get_pos(map, &map->player, 'P') == -1 || \
 		get_pos(map, &map->exit, 'E') == -1)
 	{
 		free_all(map);
@@ -110,14 +110,23 @@ static int	init_objects(t_map *map)
 
 int	init_map(t_map *map, char *filename)
 {
-	create_lvl(filename, map);
-	if (!map->lvl)
+	if (create_lvl(filename, map) == -1)
+	{
+		free_all(map);
 		exit(1);
+	}
 	init_objects(map);
 	if (!is_mapvalid(map))
 	{
 		free_all(map);
 		print_error("Map Invalid: Open Walls or Objectives not reachable!\n");
+		exit(1);
+	}
+	map->og_lvl = copy_lvl(map->lvl, map->h);
+	if (!map->og_lvl)
+	{
+		free_all(map);
+		print_error("Map Creation failed!");
 		exit(1);
 	}
 	return (0);

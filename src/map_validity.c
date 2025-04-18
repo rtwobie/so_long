@@ -64,7 +64,7 @@ static int	is_obj_reachable(t_map *map, char **filled_lvl)
 	return (1);
 }
 
-static char	**copy_lvl(char **lvl, int h)
+char	**copy_lvl(char **lvl, int h)
 {
 	int		i;
 	char	**copy;
@@ -91,6 +91,8 @@ int	is_mapvalid(t_map *map)
 	char	**temp;
 
 	temp = copy_lvl(map->lvl, map->h);
+	if (!temp)
+		return (0);
 	flood_fill(map, temp, map->player.x, map->player.y);
 	if (check_border(temp, map->w, map->h) == -1)
 	{
