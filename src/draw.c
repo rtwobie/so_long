@@ -105,13 +105,13 @@ int	draw_map(t_app *game)
 	int		y;
 	int		x;
 
+	y = 0;
 	render_border(game, &game->tex, game->win_w, game->win_h);
 	render_hud(game, &game->tex, game->moves, game->score);
-	y = 0;
-	while (y < game->map->h)
+	while (y < (game->win_h - 64) / TILE_SIZE)
 	{
 		x = 0;
-		while (x < game->map->w)
+		while (x < (game->win_w - 64) / TILE_SIZE)
 		{
 			render_cell(game, &game->tex, x, y);
 			++x;
