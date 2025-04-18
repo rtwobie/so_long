@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 02:23:41 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/16 21:56:12 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/18 03:39:08 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,18 @@
 #include "structs.h"
 #include "utils.h"
 
-static int	is_on_obj(t_entity *obj, int obj_count, int x, int y)
-{
-	int i;
+void	update_traps(t_app *game, t_map *map);
 
-	i = -1;
-	while (++i < obj_count)
-	{
-		if (y == obj[i].y && x == obj[i].x)
-			return (1);
-	}
-	return (0);
-}
-
-static char	place_surface(t_map *map, t_entity *player)
+static char	place_surface(char **original_lvl, t_entity *player)
 {
-	if (player->y == map->exit.y && player->x == map->exit.x)
+	if (original_lvl[player->y][player->x] == 'E')
 		return ('E');
-	if (is_on_obj(map->b0, map->b0_count, player->x, player->y))
-			return ('1');
-	if (is_on_obj(map->l, map->l_count, player->x, player->y))
-			return ('l');
-	if (is_on_obj(map->k, map->k_count, player->x, player->y))
-			return ('K');
+	if (original_lvl[player->y][player->x] == 'B')
+		return ('1');
+	if (original_lvl[player->y][player->x] == 'l')
+		return ('l');
+	if (original_lvl[player->y][player->x] == 'K')
+		return ('K');
 	return ('0');
 }
 
@@ -47,15 +36,21 @@ static void	update_map(t_app *game, t_map *map, int x, int y)
 	{
 		++game->score;
 		map->lvl[y][x] = '0';
-		ft_printf("coins: %i/%i\n", game->score, map->coin_count);
 	}
-	if (y == map->exit.y && x == map->exit.x)
+	else if (map->og_lvl[y][x] == 'E')
 		game->tex._p = game->tex._p_e;
-	else if (is_on_obj(map->b0, map->b0_count, x, y))
+	else if (map->og_lvl[y][x] == 'B')
 		game->tex._p = game->tex._p_b;
-	else if (is_on_obj(map->l, map->l_count, x, y) || is_on_obj(map->k, map->k_count, x, y))
+	else if (game->map->trap_state == 1 && map->og_lvl[y][x] == 'l')
+		game->tex._p = game->tex._p_t2;
+	else if (game->map->trap_state == 0 && map->og_lvl[y][x] == 'l')
 		game->tex._p = game->tex._p_t1;
-	map->lvl[map->player.y][map->player.x] = place_surface(map, &map->player);
+	else if (game->map->trap_state == 1 && map->og_lvl[y][x] == 'K')
+		game->tex._p = game->tex._p_t1;
+	else if (game->map->trap_state == 2 && map->og_lvl[y][x] == 'K')
+		game->tex._p = game->tex._p_t2;
+	map->lvl[map->player.y][map->player.x] = \
+		place_surface(map->og_lvl, &map->player);
 	map->player.x = x;
 	map->player.y = y;
 }
@@ -72,49 +67,15 @@ static void	rotate_player(t_texture *tex, int keycode)
 		tex->_p = tex->_p_d;
 }
 
-static void lava_trap_state(t_app *game, t_map *map)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	j = -1;
-	++map->trap_state;
-	if (map->trap_state == 1)
-	{
-		while (++j < map->k_count)
-			map->lvl[map->k[j].y][map->k[j].x] = 'k';
-		game->tex._l = game->tex._t2;
-		game->tex._k = game->tex._t1;
-	}
-	else if (map->trap_state == 2)
-	{
-		while (++i < map->l_count)
-			map->lvl[map->l[i].y][map->l[i].x] = 'L';
-		game->tex._l = game->tex._t3;
-		game->tex._k = game->tex._t2;
-	}
-	else if (map->trap_state == 3)
-	{
-		while (++i < map->l_count)
-			map->lvl[map->l[i].y][map->l[i].x] = 'l';
-		while (++j < map->k_count)
-			map->lvl[map->k[j].y][map->k[j].x] = 'K';
-		game->tex._l = game->tex._t1;
-		game->tex._k = game->tex._t3;
-		map->trap_state = 0;
-	}
-	ft_printf("state: %i\n", map->trap_state);
-}
-
 static void	move_player(t_app *game, int x, int y, int keycode)
 {
 	rotate_player(&game->tex, keycode);
 	if (game->map->lvl[y][x] == '1')
 		return ;
-	lava_trap_state(game, game->map);
+	update_traps(game, game->map);
 	if (game->map->lvl[y][x] == 'E' && game->score == game->map->coin_count)
 	{
+		ft_printf("Total Moves:\t%i\n", ++game->moves);
 		ft_printf("Level Complete!\n");
 		close_window(game);
 	}
@@ -126,7 +87,6 @@ static void	move_player(t_app *game, int x, int y, int keycode)
 	update_map(game, game->map, x, y);
 	game->map->lvl[y][x] = 'P';
 	++game->moves;
-	ft_printf("moves: %i\n", game->moves);
 }
 
 int	key_hook(int keycode, t_app *game)

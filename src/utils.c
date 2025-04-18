@@ -6,7 +6,7 @@
 /*   By: rha-le <rha-le@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 21:51:23 by rha-le            #+#    #+#             */
-/*   Updated: 2025/04/16 21:39:27 by rha-le           ###   ########.fr       */
+/*   Updated: 2025/04/18 03:38:25 by rha-le           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	*free_all(t_map *map)
 {
 	if (map->lvl)
 		free_lvl(map->lvl);
+	if (map->og_lvl)
+		free_lvl(map->og_lvl);
 	if (map->coin)
 		free(map->coin);
 	if (map->b0)
