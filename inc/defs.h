@@ -14,8 +14,8 @@
 # define DEFS_H
 
 # define TILE_SIZE 96
-# define MAX_WIN_HEIGHT 896 // 9 * TILE_SIZE
-# define MAX_WIN_WIDTH 1536 // 16 * TILE_SIZE
+# define MAX_WIN_HEIGHT 928 // 9 * TILE_SIZE
+# define MAX_WIN_WIDTH 1600 // 16 * TILE_SIZE
 
 # define CHARSET "10PCEBlK"
 # define TARGET "0CPEBlK"

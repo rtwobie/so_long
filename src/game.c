@@ -21,8 +21,8 @@
 
 static void	set_window_size(t_map *map, int *w, int *h)
 {
-	*w = map->w * TILE_SIZE;
-	*h = map->h * TILE_SIZE + 32;
+	*w = map->w * TILE_SIZE + 64;
+	*h = map->h * TILE_SIZE + 64;
 	if (*h > MAX_WIN_HEIGHT)
 		*h = MAX_WIN_HEIGHT;
 	if (*w > MAX_WIN_WIDTH)
@@ -31,14 +31,11 @@ static void	set_window_size(t_map *map, int *w, int *h)
 
 void	init_game(t_app *game)
 {
-	int	win_h;
-	int	win_w;
-
 	game->app = mlx_init();
 	if (!game->app)
 		return ;
-	set_window_size(game->map, &win_w, &win_h);
-	game->win = mlx_new_window(game->app, win_w, win_h, "so_long");
+	set_window_size(game->map, &game->win_w, &game->win_h);
+	game->win = mlx_new_window(game->app, game->win_w, game->win_h, "so_long");
 	if (!game->win)
 		return ;
 	load_textures(game);
