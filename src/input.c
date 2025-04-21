@@ -69,9 +69,9 @@ static void	rotate_player(t_texture *tex, int keycode)
 
 static void	move_player(t_app *game, int x, int y, int keycode)
 {
-	rotate_player(&game->tex, keycode);
 	if (game->map->lvl[y][x] == '1')
 		return ;
+	rotate_player(&game->tex, keycode);
 	update_traps(game, game->map);
 	if (game->map->lvl[y][x] == 'E' && game->score == game->map->coin_count)
 	{
